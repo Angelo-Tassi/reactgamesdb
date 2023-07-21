@@ -16,7 +16,7 @@ function App() {
 function Header() {
   return (
     <div>
-      <h1>🕹️React GamesDB🕹️</h1>
+      <h1>🕹️React GamesDB🎮</h1>
     </div>
   );
 }
@@ -28,7 +28,7 @@ function FiltersBar() {
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What games do you want to display ?</h3>
+      <h3>Games to display ?</h3>
       <button type="submit">Show me!</button>
     </form>
   );

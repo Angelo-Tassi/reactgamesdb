@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Quicksand:wght@500;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/commodore-64-pixelized');
 
 * {
   margin: 0;
@@ -26,19 +27,24 @@ body {
 }
 
 h1 {
+  color: #fff;
   text-align: center;
-  background-color: #f4a226;
-  font-family: 'Monoton';
-  font-size: 8rem;
+  background-color: #70a4b2;
+  font-family: 'Commodore 64 Pixelized';
+  font-size: 6rem;
   text-transform: uppercase;
   font-weight: 400;
-  word-spacing: 30px;
-  letter-spacing: -5px;
+  word-spacing: -35px;
+  letter-spacing: -2px;
   padding: 2.4rem 0;
 }
 
 .add-form {
-  background-color: #e5771f;
+  color: #fff;
+  font-family: 'Commodore 64 Pixelized';
+  text-transform: uppercase;
+  font-size: 2px;
+  background-color: #260ab1d7;
   padding: 2.8rem 0;
   display: flex;
   align-items: center;
