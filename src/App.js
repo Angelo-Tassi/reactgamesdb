@@ -56,21 +56,28 @@ function DisplayItems() {
     <div className="articles-container">
       {gamesArticles.map((gameCard, index) => (
         <article key={index} className="article">
-          <img src={gameCard.background_image} alt={gameCard.name} />
-          <div>
-            <header>
+          <img
+            className="photo"
+            src={gameCard.background_image}
+            alt={gameCard.name}
+          />
+          <div className="item-info">
+            <header className="meta">
               <h4>{gameCard.name}</h4>
             </header>
-            <h4>Released {gameCard.released}</h4>
-            <h6>Platforms</h6>
-            <div>
+            <h4 className="price">Released {gameCard.released}</h4>
+            <h6 className="meta">Platforms</h6>
+            <div className="meta">
               <h3>
                 Metacritic:{' '}
-                <span>
+                <span className="rating">
                   {gameCard.metacritic !== null ? gameCard.metacritic : 'N/A'}
                 </span>
               </h3>
-              {/* Add other content here */}
+              <div className="underline"></div>
+              <div className="genre"></div>
+              <div className="bold">Genre</div>
+              <h5>genre</h5>
             </div>
           </div>
         </article>
