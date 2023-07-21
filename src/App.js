@@ -1,12 +1,14 @@
+// App.js
+
+import React, { useState, useEffect } from 'react';
 import './index.css';
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <Filters />
+      <FiltersBar />
       <DisplayItems />
-      <Footer />
     </div>
   );
 }
@@ -14,42 +16,65 @@ function App() {
 function Header() {
   return (
     <div>
-      <h1>RGamesDB</h1>
+      <h1>🕹️React GamesDB🕹️</h1>
     </div>
   );
 }
-function Filters() {
-  return (
-    <form className="add-form">
-      <h3>What games do you want to display ?</h3>
 
-      <button type="submit">Show me !</button>
+function FiltersBar() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <form className="add-form" onSubmit={handleSubmit}>
+      <h3>What games do you want to display ?</h3>
+      <button type="submit">Show me!</button>
     </form>
   );
 }
+
 function DisplayItems() {
-  const request = fetch(
-    `https://api.rawg.io/api/games?platforms=166&key=73601ec88eab474386a6952aa8b34734&page=1`
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      const gameArticles = data.results;
-      console.log(gameArticles);
+  const [gamesArticles, setGamesArticles] = useState([]);
 
-      return (
-        <div className="list">
-          <h3>What games do you want to display ?</h3>
-        </div>
-      );
-    });
-}
+  useEffect(() => {
+    fetch(
+      `https://api.rawg.io/api/games?platforms=166&key=73601ec88eab474386a6952aa8b34734&page=1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const fetchedGamesArticles = data.results;
+        console.log('fetched data:', fetchedGamesArticles);
+        setGamesArticles(fetchedGamesArticles);
+      })
+      .catch((error) => {
+        console.error('error fetching data:', error);
+      });
+  }, []);
 
-function Footer() {
   return (
-    <div className="stats">
-      <p>React Games db</p>
+    <div className="articles-container">
+      {gamesArticles.map((gameCard, index) => (
+        <article key={index} className="article">
+          <img src={gameCard.background_image} alt={gameCard.name} />
+          <div>
+            <header>
+              <h4>{gameCard.name}</h4>
+            </header>
+            <h4>Released {gameCard.released}</h4>
+            <h6>Platforms</h6>
+            <div>
+              <h3>
+                Metacritic:{' '}
+                <span>
+                  {gameCard.metacritic !== null ? gameCard.metacritic : 'N/A'}
+                </span>
+              </h3>
+              {/* Add other content here */}
+            </div>
+          </div>
+        </article>
+      ))}
     </div>
   );
 }
