@@ -16,7 +16,7 @@ function App() {
 function Header() {
   return (
     <div>
-      <h1>🕹️React GamesDB🎮</h1>
+      <h1>🕹️React⚛GamesDB🎮</h1>
     </div>
   );
 }
