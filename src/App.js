@@ -100,16 +100,17 @@ function FiltersBar({
         type="submit"
         onClick={() => decreasePage(currentPage)}
       >
-        Previous Page
+        Previous
       </button>
       <button
         className="buttonWidht"
         type="submit"
         onClick={() => increasePage(currentPage)}
       >
-        Next Page
+        Next
       </button>
       <select
+        className="select"
         value={currentPlatform}
         onChange={(e) => {
           selectPlatform(e.target.value);
