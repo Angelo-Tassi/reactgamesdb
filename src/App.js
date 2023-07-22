@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 
 function App() {
+  const [platform, setPlatform] = useState(166);
   const [page, setPage] = useState(1);
+  function handleSetPlatform(currentPlatform) {
+    setPlatform(currentPlatform);
+  }
   function handleIncreasePage(currentPage) {
     setPage(currentPage >= 1 ? currentPage + 1 : currentPage);
   }
@@ -18,8 +22,10 @@ function App() {
         increasePage={handleIncreasePage}
         decreasePage={handleDecreasePage}
         currentPage={page}
+        selectPlatform={handleSetPlatform}
+        currentPlatform={platform}
       />
-      <DisplayItems currentPage={page} />
+      <DisplayItems currentPlatform={platform} currentPage={page} />
     </div>
   );
 }
@@ -32,30 +38,49 @@ function Header() {
   );
 }
 
-function FiltersBar({ increasePage, decreasePage, currentPage }) {
+function FiltersBar({
+  increasePage,
+  decreasePage,
+  currentPage,
+  selectPlatform,
+  currentPlatform,
+}) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>Games page {currentPage}</h3>
-      <button type="submit" onClick={() => decreasePage(currentPage)}>
+      <h3>
+        {currentPlatform} games page {currentPage}
+      </h3>
+      <button
+        className="buttonWidht"
+        type="submit"
+        onClick={() => decreasePage(currentPage)}
+      >
         Previous Page
       </button>
-      <button type="submit" onClick={() => increasePage(currentPage)}>
+      <button
+        className="buttonWidht"
+        type="submit"
+        onClick={() => increasePage(currentPage)}
+      >
         Next Page
       </button>
+      <select value={currentPlatform} onChange={selectPlatform}>
+        <option value={currentPlatform}>{currentPlatform}</option>
+      </select>
     </form>
   );
 }
 
-function DisplayItems({ currentPage }) {
+function DisplayItems({ currentPage, currentPlatform }) {
   const [gamesArticles, setGamesArticles] = useState([]);
 
   useEffect(() => {
     fetch(
-      `https://api.rawg.io/api/games?platforms=166&key=73601ec88eab474386a6952aa8b34734&page=${currentPage}`
+      `https://api.rawg.io/api/games?platforms=${currentPlatform}&key=73601ec88eab474386a6952aa8b34734&page=${currentPage}`
     )
       .then((response) => response.json())
       .then((data) => {
