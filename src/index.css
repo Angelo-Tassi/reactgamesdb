@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Quicksand:wght@500;700&display=swap');
 @import url('https://fonts.cdnfonts.com/css/commodore-64-pixelized');
-
-* {
+@media (max-width: 768px) {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -146,6 +145,8 @@ input[type='checkbox'] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
 }
 
 .article {
@@ -154,7 +155,7 @@ input[type='checkbox'] {
   border: 1px solid #ddd;
   border-radius: 5px;
   max-width: 400px;
-  min-width: 400px;
+  min-width: 200px;
   text-align: center;
 }
 .item-info header {
@@ -167,7 +168,7 @@ input[type='checkbox'] {
 }
 .photo {
   object-fit: cover;
-  height: 200px;
+  height: 150px;
   border: 0.25rem solid var(--clr-gold);
   border-radius: var(--radius);
 }
@@ -185,7 +186,7 @@ input[type='checkbox'] {
   text-transform: uppercase;
   letter-spacing: 0.5vw;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.4rem;
   padding-top: 2vh;
   color: black;
   display: flex;
@@ -196,7 +197,7 @@ input[type='checkbox'] {
 .metacritic {
   letter-spacing: 0.5vw;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1rem;
   padding-top: 3vh;
   padding-bottom: 2vh;
   color: black;
@@ -209,17 +210,20 @@ input[type='checkbox'] {
   margin-bottom: 1rem;
   word-spacing: 2vw;
   color: crimson;
+  font-size: 1rem;
 }
 .platform {
   padding-top: 0.5rem;
   word-spacing: 2vw;
   color: rgb(31, 201, 12);
+  font-size: 1rem;
 }
 .price {
   padding-top: 3.7vh;
   text-align: center;
   color: rgb(216, 12, 172);
   line-height: 15px;
+  font-size: 1rem;
 }
 .menu-item {
   display: grid;
