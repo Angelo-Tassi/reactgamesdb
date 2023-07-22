@@ -6,6 +6,36 @@ import './index.css';
 function App() {
   const [platform, setPlatform] = useState(166);
   const [page, setPage] = useState(1);
+  const [platformsNames, setPlatformsName] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [name, selectPlatformName] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      `https://api.rawg.io/api/platforms?key=73601ec88eab474386a6952aa8b34734`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const platformsNames = data.results;
+        console.log('fetched platforms:', platformsNames);
+        setPlatformsName(platformsNames);
+        const dropDownOptions = platformsNames.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ));
+        console.log('options', dropDownOptions);
+        setOptions(dropDownOptions);
+      })
+      .catch((error) => {
+        console.error('error fetching data:', error);
+      });
+  }, [setPlatformsName]);
+
+  function HandleSelectPlatformName(name) {
+    selectPlatformName(name);
+  }
+
   function handleSetPlatform(currentPlatform) {
     setPlatform(currentPlatform);
   }
@@ -24,6 +54,11 @@ function App() {
         currentPage={page}
         selectPlatform={handleSetPlatform}
         currentPlatform={platform}
+        platformsNames={platformsNames}
+        handleOptions={setOptions}
+        options={options}
+        selectPlatformName={HandleSelectPlatformName}
+        name={name}
       />
       <DisplayItems currentPlatform={platform} currentPage={page} />
     </div>
@@ -43,7 +78,12 @@ function FiltersBar({
   decreasePage,
   currentPage,
   selectPlatform,
+  selectPlatformName,
   currentPlatform,
+  platformsNames,
+  handleOptions,
+  options,
+  name,
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,9 +91,10 @@ function FiltersBar({
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>
-        {currentPlatform} games page {currentPage}
-      </h3>
+      <div>
+        <h3 className="bold">{name}</h3>
+        <h3>games page {currentPage}</h3>
+      </div>
       <button
         className="buttonWidht"
         type="submit"
@@ -68,8 +109,14 @@ function FiltersBar({
       >
         Next Page
       </button>
-      <select value={currentPlatform} onChange={selectPlatform}>
-        <option value={currentPlatform}>{currentPlatform}</option>
+      <select
+        value={currentPlatform}
+        onChange={(e) => {
+          selectPlatform(e.target.value);
+          selectPlatformName(e.target.options[e.target.selectedIndex].text);
+        }}
+      >
+        {options}
       </select>
     </form>
   );
@@ -106,7 +153,7 @@ function DisplayItems({ currentPage, currentPlatform }) {
             <header className="meta">
               <h4 className="title">{gameCard.name}</h4>
             </header>
-            <h4 className="price">Released {gameCard.released}</h4>
+            <h4 className="price">Released: {gameCard.released}</h4>
             <br></br>
             <div className="bold">Platforms:</div>
             <h6 className="platform">
