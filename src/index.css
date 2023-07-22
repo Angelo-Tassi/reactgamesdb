@@ -174,22 +174,64 @@ input[type='checkbox'] {
   font-weight: bold;
   font-size: medium;
   padding-bottom: 1.5vh;
+  padding-top: 0.9vh;
   color: #49a6e9;
+  text-align: center;
+}
+.title {
+  text-transform: uppercase;
+  letter-spacing: 0.5vw;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 2vh;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.metacritic {
+  letter-spacing: 0.5vw;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 3vh;
+  padding-bottom: 2vh;
+  color: black;
 }
 .meta {
   text-align: center;
 }
 .genre {
   padding-top: 0.5rem;
+  margin-bottom: 1rem;
   word-spacing: 2vw;
+  color: crimson;
+}
+.platform {
+  padding-top: 0.5rem;
+  word-spacing: 2vw;
+  color: rgb(31, 201, 12);
 }
 .price {
-  padding-top: 1.6vh;
+  padding-top: 3.6vh;
   text-align: center;
-  color: var(--clr-gold);
+  color: rgb(216, 12, 172);
+  line-height: 15px;
 }
 .menu-item {
   display: grid;
   gap: 3rem 6rem;
   max-width: 90rem;
+}
+
+.rating {
+  width: 8rem;
+  height: 8rem;
+  padding: 0.5rem;
+  padding-left: 0.75rem;
+  background: red;
+  border-radius: 50%;
+  text-align: center;
+  font-size: large;
+  color: #fff;
 }
