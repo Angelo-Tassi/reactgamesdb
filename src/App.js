@@ -91,7 +91,7 @@ function DisplayItems({ currentPage, currentPlatform }) {
       .catch((error) => {
         console.error('error fetching data:', error);
       });
-  }, [currentPage]);
+  }, [currentPage, currentPlatform]);
 
   return (
     <div className="articles-container">
