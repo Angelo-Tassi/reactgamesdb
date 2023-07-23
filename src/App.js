@@ -95,30 +95,24 @@ function FiltersBar({
         <h3 className="bold">{name}</h3>
         <h3>games page {currentPage}</h3>
       </div>
-      <button
-        className="buttonWidht"
-        type="submit"
-        onClick={() => decreasePage(currentPage)}
-      >
-        Previous
-      </button>
-      <button
-        className="buttonWidht"
-        type="submit"
-        onClick={() => increasePage(currentPage)}
-      >
-        Next
-      </button>
-      <select
-        className="select"
-        value={currentPlatform}
-        onChange={(e) => {
-          selectPlatform(e.target.value);
-          selectPlatformName(e.target.options[e.target.selectedIndex].text);
-        }}
-      >
-        {options}
-      </select>
+      <div>
+        <select
+          className="select"
+          value={currentPlatform}
+          onChange={(e) => {
+            selectPlatform(e.target.value);
+            selectPlatformName(e.target.options[e.target.selectedIndex].text);
+          }}
+        >
+          {options}
+        </select>
+        <button type="submit" onClick={() => decreasePage(currentPage)}>
+          Previous
+        </button>
+        <button type="submit" onClick={() => increasePage(currentPage)}>
+          Next
+        </button>
+      </div>
     </form>
   );
 }

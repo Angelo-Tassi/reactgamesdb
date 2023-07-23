@@ -69,9 +69,7 @@ input {
   font-weight: 700;
   font-size: 1.8rem;
   cursor: pointer;
-}
-.buttonWidht {
-  max-width: 20vw;
+  text-align: center;
 }
 
 .add-form button {
@@ -244,11 +242,8 @@ input[type='checkbox'] {
     justify-content: center;
   }
   .heading {
-    font-size: 4rem;
-  }
-  .select {
-    font-size: 1rem;
-    max-width: 50vw;
+    font-size: 3rem;
+    letter-spacing: 0.01vw;
   }
   .article {
     min-width: 200px;
@@ -259,11 +254,22 @@ input[type='checkbox'] {
   }
 
   .title {
-    font-size: 1.4rem;
+    font-size: 1.9rem;
   }
-  .buttonWidht {
-    max-width: 9vw;
+  button,
+  select,
+  input {
+    background-color: #ffebb3;
+    color: #040000;
+    font-family: inherit;
+    border: none;
+    border-radius: 5rem;
+    padding: 0.7rem 3.2rem;
+    font-weight: 700;
     font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 0.3rem;
   }
   .price,
   .platform,
