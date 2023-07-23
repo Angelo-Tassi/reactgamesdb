@@ -6,6 +6,7 @@ import './index.css';
 function App() {
   const [platform, setPlatform] = useState(166);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [platformsNames, setPlatformsName] = useState([]);
   const [options, setOptions] = useState([]);
   const [name, selectPlatformName] = useState([]);
@@ -40,11 +41,43 @@ function App() {
     setPlatform(currentPlatform);
   }
   function handleIncreasePage(currentPage) {
-    setPage(currentPage >= 1 ? currentPage + 1 : currentPage);
+    setPage((prevPage) => {
+      if (prevPage === currentPage && prevPage < totalPages) {
+        return prevPage + 1;
+      } else if (prevPage === currentPage && prevPage === totalPages) {
+        return 1; // Go back to page one if we are on the last page
+      } else {
+        return prevPage; // If the current page was not the selected page, do not change the page
+      }
+    });
   }
+
   function handleDecreasePage(currentPage) {
-    setPage(currentPage >= 2 ? currentPage - 1 : currentPage);
+    setPage((prevPage) => {
+      if (prevPage === 1) {
+        return currentPage;
+      } else {
+        return prevPage - 1;
+      }
+    });
   }
+  useEffect(() => {
+    // Fetch the data for the selected platform to calculate the total pages
+    fetch(
+      `https://api.rawg.io/api/games?platforms=${platform}&key=73601ec88eab474386a6952aa8b34734&page=1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const totalGames = data.count;
+        const pages = Math.ceil(totalGames / 20); // Assuming 20 games per page
+        setTotalPages(pages);
+        console.log('pages', pages);
+      })
+      .catch((error) => {
+        console.error('error fetching data:', error);
+      });
+  }, [platform]);
+
   return (
     <div className="app">
       <Header />
