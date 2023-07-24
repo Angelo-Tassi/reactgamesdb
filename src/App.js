@@ -152,6 +152,7 @@ function FiltersBar({
 
 function DisplayItems({ currentPage, currentPlatform }) {
   const [gamesArticles, setGamesArticles] = useState([]);
+  const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -168,10 +169,24 @@ function DisplayItems({ currentPage, currentPlatform }) {
       });
   }, [currentPage, currentPlatform]);
 
+  // Function to handle click on a game card and show the overlay
+  const handleGameCardClick = (gameCard) => {
+    setSelectedGame(gameCard);
+  };
+
+  // Function to close the overlay
+  const handleCloseOverlay = () => {
+    setSelectedGame(null);
+  };
+
   return (
     <div className="articles-container">
       {gamesArticles.map((gameCard, index) => (
-        <article key={index} className="article">
+        <article
+          key={index}
+          className="article"
+          onClick={() => handleGameCardClick(gameCard)}
+        >
           <img
             className="photo"
             src={gameCard.background_image}
@@ -207,6 +222,70 @@ function DisplayItems({ currentPage, currentPlatform }) {
           </div>
         </article>
       ))}
+      {selectedGame && (
+        <GameOverlay game={selectedGame} onCloseOverlay={handleCloseOverlay} />
+      )}
+    </div>
+  );
+}
+
+function GameOverlay({ game, onCloseOverlay }) {
+  const [clickedOnce, setClickedOnce] = useState(false);
+
+  const handleOverlayClick = () => {
+    setClickedOnce(!clickedOnce);
+    if (!clickedOnce) {
+      setTimeout(() => setClickedOnce(false), 300);
+    } else {
+      onCloseOverlay();
+    }
+  };
+
+  return (
+    <div
+      className={`overlay ${clickedOnce ? 'clicked-once' : ''}`}
+      onClick={handleOverlayClick}
+    >
+      <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+        <img className="photo" src={game.background_image} alt={game.name} />
+        <div className="info">
+          <div>
+            <h2 className="title">{game.name}</h2>
+            <h4 className="price">Released: {game.released}</h4>
+            <div className="platform bold">Platforms:</div>
+            <h6 className="platform">
+              {game.platforms.map((platform) => `${platform.platform.name} `)}
+            </h6>
+            <div className="metacritic bold">Metacritic:</div>
+            <h6 className="metacritic">
+              {game.metacritic !== null ? game.metacritic : 'N/A'}
+            </h6>
+            <div className="genre bold">Genre:</div>
+            <h6 className="genre">
+              {game.genres.map((genres) => `${genres.name} `)}
+            </h6>
+          </div>
+          <div>
+            <h3 className="description bold">Description:</h3>
+            <p className="description">
+              {game.description || 'No description available.'}
+            </p>
+            <h3 className="history bold">Game History:</h3>
+            <p className="history">
+              {/* Place your game history placeholder text here */}
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+              quis ipsum ac justo elementum aliquam. Vestibulum ante ipsum
+              primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+              In hac habitasse platea dictumst. Nulla facilisi. Mauris sed purus
+              vitae odio ullamcorper dictum quis quis eros. Duis ac odio vel
+              orci finibus rhoncus.
+            </p>
+          </div>
+        </div>
+        <button className="close-btn" onClick={onCloseOverlay}>
+          Close
+        </button>
+      </div>
     </div>
   );
 }
