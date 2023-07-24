@@ -1,6 +1,6 @@
 # React Game Database App
 
-![App Screenshot](screenshot.png)
+![App Screenshot] <img src='./Screenshot.png'></img>
 
 This is a web application built with React that allows users to browse and search for games from the RAWG Video Games Database API. Users can filter games based on platforms and search for specific games using the search bar.
 
@@ -39,4 +39,3 @@ This app uses the RAWG Video Games Database API to fetch and display game data. 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
