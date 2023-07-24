@@ -240,8 +240,8 @@ function GameOverlay({ game, onCloseOverlay }) {
   const [clickedOnce, setClickedOnce] = useState(false);
 
   const handleOverlayClick = () => {
-    setClickedOnce(!clickedOnce);
-    if (!clickedOnce) {
+    setClickedOnce(clickedOnce);
+    if (clickedOnce) {
       setTimeout(() => setClickedOnce(false), 300);
     } else {
       onCloseOverlay();
@@ -258,26 +258,29 @@ function GameOverlay({ game, onCloseOverlay }) {
         <div className="info">
           <div>
             <h2 className="title">{game.name}</h2>
-            <h4 className="price">Released: {game.released}</h4>
+            <br></br>
+            <h4 className="description">Released: {game.released}</h4>
+            <br></br>
             <div className="bold">Platforms:</div>
             <h6 className="platform">
               {game.platforms.map((platform) => `${platform.platform.name} `)}
             </h6>
             <div className="metacritic bold">Metacritic:</div>
-            <h6 className="metacritic">
+            <h6 className="overlay-rating">
               {game.metacritic !== null ? game.metacritic : 'N/A'}
             </h6>
-            <div className="genre bold">Genre:</div>
+            <div className="bold">Genre:</div>
             <h6 className="genre">
               {game.genres.map((genres) => `${genres.name} `)}
             </h6>
           </div>
           <div>
-            <h3 className="description bold">Description:</h3>
+            <h3 className="bold">Description:</h3>
             <p className="description">
-              {game.description || 'No description available.'}
+              {game.description ||
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis ipsum ac justo elementum aliquam. Vestibulum ante ipsumprimis in faucibus orci luctus et ultrices posuere cubilia Curae In hac habitasse platea dictumst. Nulla facilisi. Mauris sed purusvitae odio ullamcorper dictum quis quis eros. Duis ac odio velorci finibus rhoncus.'}
             </p>
-            <h3 className="history bold">Game History:</h3>
+            <h3 className="bold">Game History:</h3>
             <p className="history">
               {/* Place your game history placeholder text here */}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
