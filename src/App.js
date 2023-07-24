@@ -178,7 +178,7 @@ function DisplayItems({ currentPage, currentPlatform }) {
       });
   }, [currentPage, currentPlatform]);
 
-  // Function to handle click on a game card and show the overlay
+  // Functions to handle click on a game card and show the overlay
   const handleGameCardClick = (gameCard) => {
     setSelectedGame(gameCard);
   };
