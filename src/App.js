@@ -92,6 +92,7 @@ function App() {
         options={options}
         selectPlatformName={HandleSelectPlatformName}
         name={name}
+        setPage={setPage}
       />
       <DisplayItems currentPlatform={platform} currentPage={page} />
     </div>
@@ -117,6 +118,7 @@ function FiltersBar({
   handleOptions,
   options,
   name,
+  setPage,
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,16 +137,21 @@ function FiltersBar({
           onChange={(e) => {
             selectPlatform(e.target.value);
             selectPlatformName(e.target.options[e.target.selectedIndex].text);
+            setPage(1);
           }}
         >
           {options}
         </select>
-        <button type="submit" onClick={() => decreasePage(currentPage)}>
-          Previous
-        </button>
-        <button type="submit" onClick={() => increasePage(currentPage)}>
-          Next
-        </button>
+        <div>
+          <p className="bold set-page">Set Page</p>
+          <button type="submit" onClick={() => decreasePage(currentPage)}>
+            -
+          </button>
+          <span></span>
+          <button type="submit" onClick={() => increasePage(currentPage)}>
+            +
+          </button>
+        </div>
       </div>
     </form>
   );
@@ -247,7 +254,7 @@ function GameOverlay({ game, onCloseOverlay }) {
       onClick={handleOverlayClick}
     >
       <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
-        <img className="photo" src={game.background_image} alt={game.name} />
+        <img className=".photo" src={game.background_image} alt={game.name} />
         <div className="info">
           <div>
             <h2 className="title">{game.name}</h2>
