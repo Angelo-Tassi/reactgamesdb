@@ -260,6 +260,17 @@ function GameOverlay({ game, onCloseOverlay }) {
             <br></br>
             <h4 className="description">Released: {game.released}</h4>
             <br></br>
+            <h3 className="bold">Screenshots:</h3>
+            <div>
+              {game.short_screenshots.map((image, id) => (
+                <img
+                  key={id.id}
+                  className="photo"
+                  src={image.image}
+                  alt={id.id}
+                />
+              ))}
+            </div>
             <div className="bold">Platforms:</div>
             <h6 className="platform">
               {game.platforms.map((platform) => `${platform.platform.name} `)}
@@ -268,8 +279,10 @@ function GameOverlay({ game, onCloseOverlay }) {
             <h6 className="overlay-rating">
               {game.metacritic !== null ? game.metacritic : 'N/A'}
             </h6>
+            <br></br>
             <div className="bold">Genre:</div>
-            <h6 className="genre">
+            <br></br>
+            <h6 className="description">
               {game.genres.map((genres) => `${genres.name} `)}
             </h6>
           </div>
@@ -289,17 +302,6 @@ function GameOverlay({ game, onCloseOverlay }) {
               vitae odio ullamcorper dictum quis quis eros. Duis ac odio vel
               orci finibus rhoncus.
             </p>
-            <h3 className="bold">Screenshots:</h3>
-            <div>
-              {game.short_screenshots.map((image, id) => (
-                <img
-                  key={id.id}
-                  className="photo"
-                  src={image.image}
-                  alt={id.id}
-                />
-              ))}
-            </div>
           </div>
         </div>
         <button className="close-btn" onClick={onCloseOverlay}>

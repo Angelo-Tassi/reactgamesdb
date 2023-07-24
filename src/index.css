@@ -271,12 +271,15 @@ input[type='checkbox'] {
   background-color: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-  max-width: 90%;
+  width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  height: auto;
 }
 
 .overlay-photo {
@@ -353,6 +356,7 @@ input[type='checkbox'] {
   padding-bottom: 0.8rem;
   padding-top: 1.8rem;
   margin-bottom: 2rem;
+  margin-left: 37rem;
   margin-top: -2rem;
   background: red;
   border-radius: 50%;
@@ -394,19 +398,7 @@ input[type='checkbox'] {
 }
 
 /* Media query for responsive design */
-@media screen and (max-width: 369px) {
-  .overlay-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr; /* On larger screens, display the image and info in two columns */
-    gap: 2rem;
-  }
-  .overlay-photo {
-    max-height: 200px; /* Increase the maximum height of the image on larger screens */
-    max-width: 200px;
-  }
-  .info {
-    text-align: left;
-  }
+@media screen and (max-width: 400px) {
   .overlay-rating {
     align-self: center;
     width: 8rem;
@@ -417,6 +409,7 @@ input[type='checkbox'] {
     padding-bottom: 0.8rem;
     padding-top: 1.8rem;
     margin-bottom: 2rem;
+    margin: 0 auto;
     margin-left: 15rem;
     margin-top: -2rem;
     background: red;
