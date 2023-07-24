@@ -418,6 +418,46 @@ input[type='checkbox'] {
     color: white;
   }
 }
+@media screen and (max-width: 950px) {
+  .overlay-rating {
+    align-self: center;
+    width: 8rem;
+    height: 8rem;
+    padding: 0.5rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-top: 1.8rem;
+    margin-bottom: 2rem;
+    margin: 0 auto;
+    margin-top: -2rem;
+    background: red;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+  }
+}
+@media screen and (max-width: 1950px) {
+  .overlay-rating {
+    align-self: center;
+    width: 8rem;
+    height: 8rem;
+    padding: 0.5rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-top: 1.8rem;
+    margin-bottom: 2rem;
+    margin: 0 auto;
+    margin-top: -2rem;
+    background: red;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+  }
+}
 /* CSS for the screenshot overlay */
 .screenshot-overlay {
   position: fixed;
