@@ -254,7 +254,6 @@ function GameOverlay({ game, onCloseOverlay }) {
       onClick={handleOverlayClick}
     >
       <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
-        <img className=".photo" src={game.background_image} alt={game.name} />
         <div className="info">
           <div>
             <h2 className="title">{game.name}</h2>
@@ -290,6 +289,17 @@ function GameOverlay({ game, onCloseOverlay }) {
               vitae odio ullamcorper dictum quis quis eros. Duis ac odio vel
               orci finibus rhoncus.
             </p>
+            <h3 className="bold">Screenshots:</h3>
+            <div>
+              {game.short_screenshots.map((image, id) => (
+                <img
+                  key={id.id}
+                  className="photo"
+                  src={image.image}
+                  alt={id.id}
+                />
+              ))}
+            </div>
           </div>
         </div>
         <button className="close-btn" onClick={onCloseOverlay}>
