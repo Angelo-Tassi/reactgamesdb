@@ -259,7 +259,7 @@ function GameOverlay({ game, onCloseOverlay }) {
           <div>
             <h2 className="title">{game.name}</h2>
             <h4 className="price">Released: {game.released}</h4>
-            <div className="platform bold">Platforms:</div>
+            <div className="bold">Platforms:</div>
             <h6 className="platform">
               {game.platforms.map((platform) => `${platform.platform.name} `)}
             </h6>
