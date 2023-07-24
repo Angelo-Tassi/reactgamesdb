@@ -1,8 +1,9 @@
 # React Game Database App
 
-![App Screenshot] <img src='./Screenshot.png'></img>
+[App Screenshot] <img src='./Screenshot.png'></img>
+App is currently live on: https://reactgamesdb.netlify.app
 
-This is a web application built with React that allows users to browse and search for games from the RAWG Video Games Database API. Users can filter games based on platforms and search for specific games using the search bar.
+This is a simple web application built with React that allows users to browse and search for games from the RAWG Video Games Database API. Users can filter games based on platforms and search for specific games using the search bar.
 
 ## Features
 
