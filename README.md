@@ -1,4 +1,4 @@
-# React Game Database App
+# React Games Database App
 
 <img src='./Screenshot.png'></img>
 App is currently live on: https://reactgamesdb.netlify.app
