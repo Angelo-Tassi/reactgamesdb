@@ -11,7 +11,8 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [platformsNames, setPlatformsName] = useState([]);
   const [options, setOptions] = useState([]);
-  const [name, selectPlatformName] = useState([]);
+  const [name, selectPlatformName] = useState(['Commodore/Amiga']);
+  const [totalGames, setTotalGames] = useState(0);
 
   useEffect(() => {
     fetch(
@@ -74,6 +75,7 @@ function App() {
         const pages = Math.ceil(totalGames / 20); // Assuming 20 games per page
         setTotalPages(pages);
         console.log('pages', pages);
+        setTotalGames(totalGames);
       })
       .catch((error) => {
         console.error('error fetching data:', error);
@@ -97,6 +99,12 @@ function App() {
         setPage={setPage}
       />
       <DisplayItems currentPlatform={platform} currentPage={page} />
+      <Stats
+        currentPage={page}
+        name={name}
+        totalGames={totalGames}
+        totalPages={totalPages}
+      />
     </div>
   );
 }
@@ -235,6 +243,27 @@ function DisplayItems({ currentPage, currentPlatform }) {
         <GameOverlay game={selectedGame} onCloseOverlay={handleCloseOverlay} />
       )}
     </div>
+  );
+}
+function Stats({ totalGames, name, totalPages, currentPage }) {
+  console.log('totalgames:', totalGames);
+
+  const totalItems = totalGames.length;
+  console.log(totalGames.length);
+
+  // const numPacked = totalGames.filter((item) => item / 20).length;
+  const percentage = Math.round((currentPage / totalPages) * 100);
+  return (
+    <>
+      <div className="footerLine"></div>
+      <footer className="stats">
+        <em>
+          {`There are ${totalGames} ${
+            totalItems === 1 ? 'game' : 'games'
+          } on the ${name} platform, you are browsing page ${currentPage} of ${totalPages} pages available for the platform, you have browsed ${percentage} % of the ${name} platform content.`}
+        </em>
+      </footer>
+    </>
   );
 }
 

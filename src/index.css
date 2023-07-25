@@ -242,10 +242,17 @@ input[type='checkbox'] {
 }
 
 .stats {
-  background-color: #76c7ad;
+  color: #fff;
+  background-color: #260ab1d7;
+  font-family: 'Commodore 64 Pixelized';
   text-align: center;
+  font-size: 1.8rem;
   font-weight: 700;
-  padding: 3.2rem 0;
+  /* padding: 3.2rem 0; */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .app {
@@ -364,7 +371,10 @@ input[type='checkbox'] {
   font-size: 30px;
   color: white;
 }
-
+.footerLine {
+  background-color: var(--primary-color);
+  padding-top: 2rem;
+}
 .description {
   font-size: 2rem;
   color: #666;

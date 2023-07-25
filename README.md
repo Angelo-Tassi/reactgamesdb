@@ -9,8 +9,13 @@ This is a simple web application built with React that allows users to browse an
 
 - Browse games by platform
 - Pagination to navigate through game pages
-- Click on a game card to view more details in an overlay
+- Click on a game card to view more details and screenshots of the game in an overlay
 - Responsive design for mobile and desktop screens
+- Footer bar with stats regarding the available content
+
+## Missing
+
+- Game descriptions and history, still not available in the API: looking into GPT API to have them dynamically generated.
 
 ## Getting Started
 
