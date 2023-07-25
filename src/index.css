@@ -94,6 +94,7 @@ h3 {
   max-height: 200px;
   max-width: 350px;
   width: 100%;
+  cursor: pointer;
 }
 
 .bold {
