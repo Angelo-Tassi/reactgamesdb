@@ -251,7 +251,7 @@ function Stats({ totalGames, name, totalPages, currentPage }) {
   const totalItems = totalGames.length;
   console.log(totalGames.length);
 
-  // const numPacked = totalGames.filter((item) => item / 20).length;
+  // constn numPacked = totalGames.filter((item) => item / 20).length;
   const percentage = Math.round((currentPage / totalPages) * 100);
   return (
     <>
