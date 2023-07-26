@@ -161,13 +161,6 @@ function FiltersBar({
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  const gamesFilter = gamesArticles
-    .map((item) => item.name)
-    .filter(function (item) {
-      if (item === '') {
-      }
-    });
-  // };
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
