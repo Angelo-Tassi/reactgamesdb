@@ -60,8 +60,7 @@ h3 {
   gap: 0.8rem;
 }
 .padding {
-  padding-bottom: -2rem;
-  padding-top: -2 rem;
+  margin-top: -2rem;
 }
 .set-page {
   padding-bottom: 0.8rem;

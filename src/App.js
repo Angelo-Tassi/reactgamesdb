@@ -14,6 +14,7 @@ function App() {
   const [name, selectPlatformName] = useState(['Commodore/Amiga']);
   const [totalGames, setTotalGames] = useState(0);
   const [gamesArticles, setGamesArticles] = useState([]);
+  const [userSearch, setUserSearch] = useState('');
 
   useEffect(() => {
     fetch(
@@ -114,6 +115,8 @@ function App() {
         name={name}
         setPage={setPage}
         gamesArticles={gamesArticles}
+        userSearch={userSearch}
+        setUserSearch={setUserSearch}
       />
       <Stats
         currentPage={page}
@@ -125,6 +128,7 @@ function App() {
         gamesArticles={gamesArticles}
         currentPlatform={platform}
         currentPage={page}
+        userSearch={userSearch}
       />
       <Stats
         currentPage={page}
@@ -157,14 +161,23 @@ function FiltersBar({
   name,
   setPage,
   gamesArticles,
+  userSearch,
+  setUserSearch,
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  const handleUserSearch = (e) => setUserSearch(e.target.value);
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <div>
+      <div className="padding">
+        <input
+          type="text"
+          placeholder="..Search Game"
+          value={userSearch}
+          onChange={handleUserSearch}
+        />
         <h3 className="bold">{name}</h3>
         <h3>games page {currentPage}</h3>
       </div>
@@ -194,25 +207,17 @@ function FiltersBar({
   );
 }
 
-function DisplayItems({ gamesArticles, currentPage, currentPlatform }) {
+function DisplayItems({
+  userSearch,
+  gamesArticles,
+  currentPage,
+  currentPlatform,
+}) {
   const [selectedGame, setSelectedGame] = useState(null);
+  const fiteredGamesArticles = gamesArticles.filter((game) =>
+    game.name.toLowerCase().includes(userSearch.toLowerCase())
+  );
 
-  // useEffect(() => {
-  //   fetch(
-  //     `https://api.rawg.io/api/games?platforms=${currentPlatform}&key=73601ec88eab474386a6952aa8b34734&page=${currentPage}`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const fetchedGamesArticles = data.results;
-  //       console.log('fetched data:', fetchedGamesArticles);
-  //       setGamesArticles(fetchedGamesArticles);
-  //     })
-  //     .catch((error) => {
-  //       console.error('error fetching data:', error);
-  //     });
-  // }, [currentPage, currentPlatform]);
-
-  // Functions to handle click on a game card and show the overlay
   const handleGameCardClick = (gameCard) => {
     setSelectedGame(gameCard);
   };
@@ -224,7 +229,7 @@ function DisplayItems({ gamesArticles, currentPage, currentPlatform }) {
   return (
     <>
       <div className="articles-container">
-        {gamesArticles.map((gameCard, index) => (
+        {fiteredGamesArticles.map((gameCard, index) => (
           <article
             key={index}
             className="article"
