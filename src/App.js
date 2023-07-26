@@ -73,7 +73,11 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log('data:', data);
+
         const totalGames = data.count;
+        console.log('totalgames:', totalGames);
+
         const pages = Math.ceil(totalGames / 20); // Assuming 20 games per page
         setTotalPages(pages);
         console.log('pages', pages);
@@ -288,7 +292,6 @@ function Stats({ totalGames, name, totalPages, currentPage }) {
   const totalItems = totalGames.length;
   console.log(totalGames.length);
 
-  // const numPacked = totalGames.filter((item) => item / 20).length;
   const percentage = Math.round((currentPage / totalPages) * 100);
   return (
     <>
@@ -296,7 +299,7 @@ function Stats({ totalGames, name, totalPages, currentPage }) {
         <em>
           {`There are ${totalGames} ${
             totalItems === 1 ? 'game' : 'games'
-          } on the ${name} platform, you are browsing page ${currentPage} of the ${totalPages} pages available for the platform. You have browsed ${percentage} % of the ${name} platform content..◻️`}
+          } on the ${name} platform, you are browsing page ${currentPage} of the ${totalPages} pages available for the platform. You browsed ${percentage} % of the ${name} platform content..◻️`}
         </em>
       </footer>
     </>
