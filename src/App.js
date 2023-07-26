@@ -13,6 +13,7 @@ function App() {
   const [options, setOptions] = useState([]);
   const [name, selectPlatformName] = useState(['Commodore/Amiga']);
   const [totalGames, setTotalGames] = useState(0);
+  const [gamesArticles, setGamesArticles] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -82,6 +83,21 @@ function App() {
       });
   }, [platform]);
 
+  useEffect(() => {
+    fetch(
+      `https://api.rawg.io/api/games?platforms=${platform}&key=73601ec88eab474386a6952aa8b34734&page=${page}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const fetchedGamesArticles = data.results;
+        console.log('fetched data:', fetchedGamesArticles);
+        setGamesArticles(fetchedGamesArticles);
+      })
+      .catch((error) => {
+        console.error('error fetching data:', error);
+      });
+  }, [page, platform]);
+
   return (
     <div className="app">
       <Header />
@@ -97,8 +113,19 @@ function App() {
         selectPlatformName={HandleSelectPlatformName}
         name={name}
         setPage={setPage}
+        gamesArticles={gamesArticles}
       />
-      <DisplayItems currentPlatform={platform} currentPage={page} />
+      <Stats
+        currentPage={page}
+        name={name}
+        totalGames={totalGames}
+        totalPages={totalPages}
+      />
+      <DisplayItems
+        gamesArticles={gamesArticles}
+        currentPlatform={platform}
+        currentPage={page}
+      />
       <Stats
         currentPage={page}
         name={name}
@@ -129,10 +156,18 @@ function FiltersBar({
   options,
   name,
   setPage,
+  gamesArticles,
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  const gamesFilter = gamesArticles
+    .map((item) => item.name)
+    .filter(function (item) {
+      if (item === '') {
+      }
+    });
+  // };
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -157,7 +192,6 @@ function FiltersBar({
           <button type="submit" onClick={() => decreasePage(currentPage)}>
             -
           </button>
-          <span></span>
           <button type="submit" onClick={() => increasePage(currentPage)}>
             +
           </button>
@@ -167,24 +201,23 @@ function FiltersBar({
   );
 }
 
-function DisplayItems({ currentPage, currentPlatform }) {
-  const [gamesArticles, setGamesArticles] = useState([]);
+function DisplayItems({ gamesArticles, currentPage, currentPlatform }) {
   const [selectedGame, setSelectedGame] = useState(null);
 
-  useEffect(() => {
-    fetch(
-      `https://api.rawg.io/api/games?platforms=${currentPlatform}&key=73601ec88eab474386a6952aa8b34734&page=${currentPage}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const fetchedGamesArticles = data.results;
-        console.log('fetched data:', fetchedGamesArticles);
-        setGamesArticles(fetchedGamesArticles);
-      })
-      .catch((error) => {
-        console.error('error fetching data:', error);
-      });
-  }, [currentPage, currentPlatform]);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://api.rawg.io/api/games?platforms=${currentPlatform}&key=73601ec88eab474386a6952aa8b34734&page=${currentPage}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const fetchedGamesArticles = data.results;
+  //       console.log('fetched data:', fetchedGamesArticles);
+  //       setGamesArticles(fetchedGamesArticles);
+  //     })
+  //     .catch((error) => {
+  //       console.error('error fetching data:', error);
+  //     });
+  // }, [currentPage, currentPlatform]);
 
   // Functions to handle click on a game card and show the overlay
   const handleGameCardClick = (gameCard) => {
@@ -195,56 +228,62 @@ function DisplayItems({ currentPage, currentPlatform }) {
   const handleCloseOverlay = () => {
     setSelectedGame(null);
   };
-
   return (
-    <div className="articles-container">
-      {gamesArticles.map((gameCard, index) => (
-        <article
-          key={index}
-          className="article"
-          onClick={() => handleGameCardClick(gameCard)}
-        >
-          <img
-            className="photo"
-            src={gameCard.background_image}
-            alt={gameCard.name}
-          />
-          <div className="item-info">
-            <header className="meta">
-              <h4 className="title">{gameCard.name}</h4>
-            </header>
-            <h4 className="price">Released: {gameCard.released}</h4>
-            <br></br>
-            <div className="bold">Platforms:</div>
-            <h6 className="platform">
-              {gameCard.platforms.map(
-                (platform) => `${platform.platform.name} `
-              )}
-            </h6>
-            <div className="meta">
-              <h3 className="metacritic">
-                Metacritic:{' '}
-                <span className="rating">
-                  {gameCard.metacritic !== null ? gameCard.metacritic : 'N/A'}
-                </span>
-              </h3>
-              <div className="underline"></div>
-              <div className="genre"></div>
-
-              <div className="bold">Genre</div>
-              <h6 className="genre">
-                {gameCard.genres.map((genres) => `${genres.name} `)}
+    <>
+      <div className="articles-container">
+        {gamesArticles.map((gameCard, index) => (
+          <article
+            key={index}
+            className="article"
+            onClick={() => handleGameCardClick(gameCard)}
+          >
+            <img
+              className="photo"
+              src={gameCard.background_image}
+              alt={gameCard.name}
+            />
+            <div className="item-info">
+              <header className="meta">
+                <h4 className="title">{gameCard.name}</h4>
+              </header>
+              <h4 className="price">Released: {gameCard.released}</h4>
+              <br></br>
+              <div className="bold">Platforms:</div>
+              <h6 className="platform">
+                {gameCard.platforms.map(
+                  (platform) => `${platform.platform.name} `
+                )}
               </h6>
+              <div className="meta">
+                <h3 className="metacritic">
+                  Metacritic:{' '}
+                  <span className="rating">
+                    {gameCard.metacritic !== null ? gameCard.metacritic : 'N/A'}
+                  </span>
+                </h3>
+                <div className="underline"></div>
+                <div className="genre"></div>
+
+                <div className="bold">Genre</div>
+                <h6 className="genre">
+                  {gameCard.genres.map((genres) => `${genres.name} `)}
+                </h6>
+              </div>
             </div>
-          </div>
-        </article>
-      ))}
-      {selectedGame && (
-        <GameOverlay game={selectedGame} onCloseOverlay={handleCloseOverlay} />
-      )}
-    </div>
+          </article>
+        ))}
+        {selectedGame && (
+          <GameOverlay
+            game={selectedGame}
+            onCloseOverlay={handleCloseOverlay}
+          />
+        )}
+      </div>
+      <div className="footerLine"></div>
+    </>
   );
 }
+
 function Stats({ totalGames, name, totalPages, currentPage }) {
   console.log('totalgames:', totalGames);
 
@@ -255,12 +294,11 @@ function Stats({ totalGames, name, totalPages, currentPage }) {
   const percentage = Math.round((currentPage / totalPages) * 100);
   return (
     <>
-      <div className="footerLine"></div>
       <footer className="stats">
         <em>
           {`There are ${totalGames} ${
             totalItems === 1 ? 'game' : 'games'
-          } on the ${name} platform, you are browsing page ${currentPage} of ${totalPages} pages available for the platform, you have browsed ${percentage} % of the ${name} platform content.`}
+          } on the ${name} platform, you are browsing page ${currentPage} of the ${totalPages} pages available for the platform. You have browsed ${percentage} % of the ${name} platform content..◻️`}
         </em>
       </footer>
     </>

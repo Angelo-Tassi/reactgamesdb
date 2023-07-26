@@ -59,6 +59,10 @@ h3 {
   justify-content: center;
   gap: 0.8rem;
 }
+.padding {
+  padding-bottom: -2rem;
+  padding-top: -2 rem;
+}
 .set-page {
   padding-bottom: 0.8rem;
 }
@@ -67,6 +71,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 1rem;
 }
 
 .article {
@@ -151,10 +156,6 @@ h1:hover {
   background-color: #2e6583;
 }
 
-.add-form:hover {
-  background-color: #0a045d;
-}
-
 button,
 select,
 input {
@@ -165,12 +166,11 @@ input {
   border-radius: 10rem;
   padding: 1.2rem 3.2rem;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.2s ease;
 }
-
 button:hover,
 select:hover,
 input:hover {
@@ -247,13 +247,15 @@ input[type='checkbox'] {
   background-color: #260ab1d7;
   font-family: 'Commodore 64 Pixelized';
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
   /* padding: 3.2rem 0; */
-  padding-top: 2rem;
+  padding-top: -3rem;
   padding-bottom: 2rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  text-transform: uppercase;
+  line-height: 1.8rem;
 }
 
 .app {
