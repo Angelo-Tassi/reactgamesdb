@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import GameOverlay from './gameoverlay';
+import { fetchGamesByPlatform } from './api';
 
 import './index.css';
 
@@ -44,6 +45,7 @@ function App() {
 
   function handleSetPlatform(currentPlatform) {
     setPlatform(currentPlatform);
+    setUserSearch('');
   }
   function handleIncreasePage(currentPage) {
     setPage((prevPage) => {
@@ -67,14 +69,14 @@ function App() {
     });
   }
   useEffect(() => {
-    // Fetch the data for the selected platform to calculate the total pages
     fetch(
-      `https://api.rawg.io/api/games?platforms=${platform}&key=73601ec88eab474386a6952aa8b34734&page=1`
+      `https://api.rawg.io/api/games?platforms=${platform}&key=73601ec88eab474386a6952aa8b34734&page=${page}&search=${userSearch}`
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('data:', data);
-
+        const fetchedGamesArticles = data.results;
+        console.log('fetched data:', fetchedGamesArticles);
+        setGamesArticles(fetchedGamesArticles);
         const totalGames = data.count;
         console.log('totalgames:', totalGames);
 
@@ -86,22 +88,7 @@ function App() {
       .catch((error) => {
         console.error('error fetching data:', error);
       });
-  }, [platform]);
-
-  useEffect(() => {
-    fetch(
-      `https://api.rawg.io/api/games?platforms=${platform}&key=73601ec88eab474386a6952aa8b34734&page=${page}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const fetchedGamesArticles = data.results;
-        console.log('fetched data:', fetchedGamesArticles);
-        setGamesArticles(fetchedGamesArticles);
-      })
-      .catch((error) => {
-        console.error('error fetching data:', error);
-      });
-  }, [page, platform]);
+  }, [page, platform, userSearch]);
 
   return (
     <div className="app">
@@ -121,24 +108,34 @@ function App() {
         gamesArticles={gamesArticles}
         userSearch={userSearch}
         setUserSearch={setUserSearch}
+        setGamesArticles={setGamesArticles}
       />
       <Stats
         currentPage={page}
         name={name}
         totalGames={totalGames}
         totalPages={totalPages}
+        userSearch={userSearch}
+        gamesArticles={gamesArticles}
+        setUserSearch={setUserSearch}
       />
       <DisplayItems
         gamesArticles={gamesArticles}
         currentPlatform={platform}
         currentPage={page}
         userSearch={userSearch}
+        totalGames={totalGames}
+        totalPages={totalPages}
+        setGamesArticles={setGamesArticles}
       />
       <Stats
         currentPage={page}
         name={name}
         totalGames={totalGames}
         totalPages={totalPages}
+        userSearch={userSearch}
+        gamesArticles={gamesArticles}
+        setUserSearch={setUserSearch}
       />
     </div>
   );
@@ -216,11 +213,32 @@ function DisplayItems({
   gamesArticles,
   currentPage,
   currentPlatform,
+  totalPages,
+  setGamesArticles,
 }) {
+  useEffect(() => {
+    // Function to fetch all games for the selected platform
+    const fetchAllGamesByPlatform = async () => {
+      try {
+        const allGames = await fetchGamesByPlatform(currentPlatform);
+        setGamesArticles(allGames);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchAllGamesByPlatform();
+  }, [currentPlatform, userSearch, setGamesArticles]);
+
+  const filteredGames = gamesArticles
+    ? gamesArticles.filter((game) =>
+        game.name.toLowerCase().includes(userSearch.toLowerCase())
+      )
+    : [];
   const [selectedGame, setSelectedGame] = useState(null);
-  const fiteredGamesArticles = gamesArticles.filter((game) =>
-    game.name.toLowerCase().includes(userSearch.toLowerCase())
-  );
+  // const fiteredGamesArticles = gamesArticles.filter((game) =>
+  //   game.name.toLowerCase().includes(userSearch.toLowerCase())
+  // );
 
   const handleGameCardClick = (gameCard) => {
     setSelectedGame(gameCard);
@@ -230,10 +248,11 @@ function DisplayItems({
   const handleCloseOverlay = () => {
     setSelectedGame(null);
   };
+
   return (
     <>
       <div className="articles-container">
-        {fiteredGamesArticles.map((gameCard, index) => (
+        {filteredGames.map((gameCard, index) => (
           <article
             key={index}
             className="article"
@@ -286,21 +305,39 @@ function DisplayItems({
   );
 }
 
-function Stats({ totalGames, name, totalPages, currentPage }) {
-  console.log('totalgames:', totalGames);
+function Stats({
+  totalGames,
+  name,
+  totalPages,
+  currentPage,
+  userSearch,
+  gamesArticles,
+  setUserSearch,
+}) {
+  console.log('usersearch', userSearch);
 
-  const totalItems = totalGames.length;
-  console.log(totalGames.length);
+  const totalItems = totalGames;
 
   const percentage = Math.round((currentPage / totalPages) * 100);
   return (
     <>
       <footer className="stats">
-        <em>
-          {`There are ${totalGames} ${
-            totalItems === 1 ? 'game' : 'games'
-          } on the ${name} platform, you are browsing page ${currentPage} of the ${totalPages} pages available for the platform. You browsed ${percentage} % of the ${name} platform content..◻️`}
-        </em>
+        {userSearch === '' ? (
+          <em>
+            {`There are ${totalGames} ${
+              totalItems === 1 ? 'game' : 'games'
+            } on the ${name} platform, you are browsing page ${currentPage} of the ${totalPages} pages available for the platform. You browsed ${percentage} % of the ${name} platform content..◻️`}
+          </em>
+        ) : (
+          <div>
+            {`Searching..◻️`}
+            <div className="padding2">
+              <button type="submit" onClick={() => setUserSearch('')}>
+                Reset
+              </button>
+            </div>
+          </div>
+        )}
       </footer>
     </>
   );
