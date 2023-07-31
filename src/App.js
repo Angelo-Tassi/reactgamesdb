@@ -1,10 +1,9 @@
 // App.js
 
-import React, { useState, useEffect } from 'react';
-import GameOverlay from './gameoverlay';
-import { fetchGamesByPlatform } from './api';
+import React, { useState, useEffect } from "react";
+import GameOverlay from "./gameoverlay";
 
-import './index.css';
+import "./index.css";
 
 function App() {
   const [platform, setPlatform] = useState(166);
@@ -12,10 +11,10 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [platformsNames, setPlatformsName] = useState([]);
   const [options, setOptions] = useState([]);
-  const [name, selectPlatformName] = useState(['Commodore/Amiga']);
+  const [name, selectPlatformName] = useState(["Commodore/Amiga"]);
   const [totalGames, setTotalGames] = useState(0);
   const [gamesArticles, setGamesArticles] = useState([]);
-  const [userSearch, setUserSearch] = useState('');
+  const [userSearch, setUserSearch] = useState("");
 
   useEffect(() => {
     fetch(
@@ -24,18 +23,18 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const platformsNames = data.results;
-        console.log('fetched platforms:', platformsNames);
+        console.log("fetched platforms:", platformsNames);
         setPlatformsName(platformsNames);
         const dropDownOptions = platformsNames.map((item) => (
           <option key={item.id} value={item.id}>
             {item.name}
           </option>
         ));
-        console.log('options', dropDownOptions);
+        console.log("options", dropDownOptions);
         setOptions(dropDownOptions);
       })
       .catch((error) => {
-        console.error('error fetching data:', error);
+        console.error("error fetching data:", error);
       });
   }, [setPlatformsName]);
 
@@ -45,7 +44,7 @@ function App() {
 
   function handleSetPlatform(currentPlatform) {
     setPlatform(currentPlatform);
-    setUserSearch('');
+    setUserSearch("");
   }
   function handleIncreasePage(currentPage) {
     setPage((prevPage) => {
@@ -75,18 +74,18 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const fetchedGamesArticles = data.results;
-        console.log('fetched data:', fetchedGamesArticles);
+        console.log("fetched data:", fetchedGamesArticles);
         setGamesArticles(fetchedGamesArticles);
         const totalGames = data.count;
-        console.log('totalgames:', totalGames);
+        console.log("totalgames:", totalGames);
 
         const pages = Math.ceil(totalGames / 20); // Assuming 20 games per page
         setTotalPages(pages);
-        console.log('pages', pages);
+        console.log("pages", pages);
         setTotalGames(totalGames);
       })
       .catch((error) => {
-        console.error('error fetching data:', error);
+        console.error("error fetching data:", error);
       });
   }, [page, platform, userSearch]);
 
@@ -216,20 +215,6 @@ function DisplayItems({
   totalPages,
   setGamesArticles,
 }) {
-  useEffect(() => {
-    // Function to fetch all games for the selected platform
-    const fetchAllGamesByPlatform = async () => {
-      try {
-        const allGames = await fetchGamesByPlatform(currentPlatform);
-        setGamesArticles(allGames);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchAllGamesByPlatform();
-  }, [currentPlatform, userSearch, setGamesArticles]);
-
   const filteredGames = gamesArticles
     ? gamesArticles.filter((game) =>
         game.name.toLowerCase().includes(userSearch.toLowerCase())
@@ -277,9 +262,9 @@ function DisplayItems({
               </h6>
               <div className="meta">
                 <h3 className="metacritic">
-                  Metacritic:{' '}
+                  Metacritic:{" "}
                   <span className="rating">
-                    {gameCard.metacritic !== null ? gameCard.metacritic : 'N/A'}
+                    {gameCard.metacritic !== null ? gameCard.metacritic : "N/A"}
                   </span>
                 </h3>
                 <div className="underline"></div>
@@ -314,7 +299,7 @@ function Stats({
   gamesArticles,
   setUserSearch,
 }) {
-  console.log('usersearch', userSearch);
+  console.log("usersearch", userSearch);
 
   const totalItems = totalGames;
 
@@ -322,17 +307,17 @@ function Stats({
   return (
     <>
       <footer className="stats">
-        {userSearch === '' ? (
+        {userSearch === "" ? (
           <em>
             {`There are ${totalGames} ${
-              totalItems === 1 ? 'game' : 'games'
+              totalItems === 1 ? "game" : "games"
             } on the ${name} platform, you are browsing page ${currentPage} of the ${totalPages} pages available for the platform. You browsed ${percentage} % of the ${name} platform content..◻️`}
           </em>
         ) : (
           <div>
             {`Searching..◻️`}
             <div className="padding2">
-              <button type="submit" onClick={() => setUserSearch('')}>
+              <button type="submit" onClick={() => setUserSearch("")}>
                 Reset
               </button>
             </div>
