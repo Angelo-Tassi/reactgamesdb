@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      `https://api.rawg.io/api/platforms?key=73601ec88eab474386a6952aa8b34734`
+      `https://api.rawg.io/api/platforms?key=08be821e6a4c474dad80c5fb540779c7`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -69,7 +69,7 @@ function App() {
   }
   useEffect(() => {
     fetch(
-      `https://api.rawg.io/api/games?platforms=${platform}&key=73601ec88eab474386a6952aa8b34734&page=${page}&search=${userSearch}`
+      `https://api.rawg.io/api/games?platforms=${platform}&key=08be821e6a4c474dad80c5fb540779c7&page=${page}&search=${userSearch}`
     )
       .then((response) => response.json())
       .then((data) => {

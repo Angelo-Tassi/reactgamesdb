@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ScreenshotOverlay from './screenshots';
+import React, { useState } from "react";
+import ScreenshotOverlay from "./screenshots";
 
 function GameOverlay({ game, onCloseOverlay }) {
   const [clickedOnce, setClickedOnce] = useState(false);
@@ -20,7 +20,7 @@ function GameOverlay({ game, onCloseOverlay }) {
 
   return (
     <div
-      className={`overlay ${clickedOnce ? 'clicked-once' : ''}`}
+      className={`overlay ${clickedOnce ? "clicked-once" : ""}`}
       onClick={handleOverlayClick}
     >
       {enlargedScreenshot && (
@@ -54,7 +54,7 @@ function GameOverlay({ game, onCloseOverlay }) {
             </h6>
             <div className="metacritic bold">Metacritic:</div>
             <h6 className="overlay-rating">
-              {game.metacritic !== null ? game.metacritic : 'N/A'}
+              {game.metacritic !== null ? game.metacritic : "N/A"}
             </h6>
             <br></br>
             <div className="bold">Genre:</div>
@@ -67,7 +67,7 @@ function GameOverlay({ game, onCloseOverlay }) {
             <h3 className="bold">Description:</h3>
             <p className="description">
               {game.description ||
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis ipsum ac justo elementum aliquam. Vestibulum ante ipsumprimis in faucibus orci luctus et ultrices posuere cubilia Curae In hac habitasse platea dictumst. Nulla facilisi. Mauris sed purusvitae odio ullamcorper dictum quis quis eros. Duis ac odio velorci finibus rhoncus.'}
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis ipsum ac justo elementum aliquam. Vestibulum ante ipsumprimis in faucibus orci luctus et ultrices posuere cubilia Curae In hac habitasse platea dictumst. Nulla facilisi. Mauris sed purusvitae odio ullamcorper dictum quis quis eros. Duis ac odio velorci finibus rhoncus."}
             </p>
             <h3 className="bold">Game History:</h3>
             <p className="history">
