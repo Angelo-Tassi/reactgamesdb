@@ -176,7 +176,7 @@ function FiltersBar({
           type="text"
           placeholder="..Search Game"
           value={userSearch}
-          onChange={(handleUserSearch, setPage(1))}
+          onChange={handleUserSearch}
         />
         <h3 className="bold">{name}</h3>
         <h3>games page {currentPage}</h3>
